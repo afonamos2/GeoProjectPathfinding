@@ -71,12 +71,12 @@ public static class Vec2Ext {
         array[b] = temp;
     }
 
-    public static double SqrDist(Vec2 a, Vec2 b) {
+    public static float SqrDist(Vec2 a, Vec2 b) {
         return (a.x - b.x) * (a.x - b.x) 
             + (a.y - b.y) * (a.y - b.y);
     }
 
-    public static double Distance(Vec2 a, Vec2 b) {
-        return Math.Sqrt(SqrDist(a, b));
+    public static float Distance(Vec2 a, Vec2 b) {
+        return (float)Math.Sqrt(SqrDist(a, b));
     }
 }

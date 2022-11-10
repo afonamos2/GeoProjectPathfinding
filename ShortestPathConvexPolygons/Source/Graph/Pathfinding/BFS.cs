@@ -13,8 +13,11 @@ public static class BFS {
         Node startNode = graph.AddPoint(start);
 
         queue.Enqueue(startNode);
-        
+
+        int nodeExplored = 0;
         while (queue.Count > 0) {
+            nodeExplored++;
+
             Node currNode = queue.Dequeue();
             visited.Add(currNode.vertex);
 
@@ -22,8 +25,9 @@ public static class BFS {
                 break;
             }
 
-            foreach (var neighbor in currNode.neighbors) {
+            foreach (var neighbor in currNode.neighbors) { 
                 if (!visited.Contains(neighbor.vertex)) {
+                    nodeExplored++;
                     queue.Enqueue(neighbor);
                     if (paths.ContainsKey(neighbor.vertex)) {
                         paths[neighbor.vertex] = currNode.vertex;
@@ -36,17 +40,21 @@ public static class BFS {
 
         List<Vec2> pathList = new List<Vec2>();
         Vec2 state = dest;
+        float distance = 0f;
 
         //Backtracking visited nodes to find path
         while (state != start) {
             pathList.Add(state);
             Vec2 prevState = paths[state];
+            distance += Vec2Ext.Distance(state, prevState);
             state = prevState;
         }
         pathList.Add(start);
 
         pathList.Reverse();
         Path path = new Path(pathList);
+        path.NodesExplored = nodeExplored;
+        path.Distance = distance;
 
         graph.RemoveNode(startNode);
         graph.RemoveNode(destNode);

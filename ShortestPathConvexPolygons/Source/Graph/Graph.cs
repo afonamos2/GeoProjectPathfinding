@@ -104,8 +104,10 @@ public partial class Graph {
     private void AddVisibleNeighbors(Node node) {
         foreach (var dest in _nodes) {
             if (!dest.poly.Equals(node.poly) && !LineIntersectsPolygon(node.vertex, dest.vertex)) {
-                node.neighbors.Add(dest);
-                dest.neighbors.Add(node);
+                if (!node.neighbors.Contains(dest))
+                    node.neighbors.Add(dest);
+                if (!dest.neighbors.Contains(node))
+                    dest.neighbors.Add(node);
             }
         }
     }

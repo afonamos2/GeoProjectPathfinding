@@ -16,10 +16,11 @@ public class UCS {
         queue.Enqueue(0f, startNode);
         costs.Add(start, 0f);
         
-        int nodesVisited = 0;
+        int nodeExplored = 0;
         while (!queue.IsEmpty) {
+            nodeExplored++;
+
             Node currNode = queue.DequeueValue();
-            nodesVisited++;
             visited.Add(currNode.vertex);
 
             if (currNode.vertex == dest) {
@@ -28,7 +29,7 @@ public class UCS {
 
             foreach (var neighbor in currNode.neighbors) {
                 if (!visited.Contains(neighbor.vertex)) {
-
+                    nodeExplored++;
                     if (!costs.ContainsKey(neighbor.vertex)) {
                         costs.Add(neighbor.vertex, float.PositiveInfinity);
                     }
@@ -50,17 +51,21 @@ public class UCS {
 
         List<Vec2> pathList = new List<Vec2>();
         Vec2 state = dest;
+        float distance = 0f;
 
         //Backtracking visited nodes to find path
         while (state != start) {
             pathList.Add(state);
             Vec2 prevState = paths[state];
+            distance += Vec2Ext.Distance(state, prevState);
             state = prevState;
         }
         pathList.Add(start);
 
         pathList.Reverse();
         Path path = new Path(pathList);
+        path.NodesExplored = nodeExplored;
+        path.Distance = distance;
 
         graph.RemoveNode(startNode);
         graph.RemoveNode(destNode);

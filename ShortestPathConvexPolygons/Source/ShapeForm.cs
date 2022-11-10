@@ -19,11 +19,17 @@ namespace ShortestPathConvexPolygons
 
         private PlacementMode placementMode = PlacementMode.None;
 
+        private Pathfinder[] pathfinders =
+        {
+            BFS.GeneratePath, UCS.GeneratePath, AStar.GeneratePath
+        };
+
         public ShapeForm()
         {
             InitializeComponent();
             this.Width = 1600;
             this.Height = 900;
+            PathGenListBox.SelectedIndex = 0; //The box starts at index -1, god knows why
             InitializeGraph();
         }
 
@@ -89,7 +95,12 @@ namespace ShortestPathConvexPolygons
         private void CreatePath()
         {
             graph.CreateVisibilityGraph();
-            path = AStar.GeneratePath(start, dest, graph);
+            path = pathfinders[PathGenListBox.SelectedIndex](start, dest, graph);
+
+            //Updating labels
+            VerticesLabel.Text = $"Vertices: {graph.Nodes.Count}";
+            NodesExploredLabel.Text = $"Nodes Explored: {path.NodesExplored}";
+            PathDistanceLabel.Text = $"Distance: {path.Distance}";
         }
 
         private void StartPlaceButton_Click(object sender, EventArgs e)
@@ -166,14 +177,11 @@ namespace ShortestPathConvexPolygons
             Invalidate();
         }
 
-        private void PlacementPanel_Paint(object sender, PaintEventArgs e)
+        private void PathGenListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
+            if (graph != null) 
+                CreatePath();
+            Invalidate();
         }
     }
 }

@@ -115,7 +115,7 @@ namespace ShortestPathConvexPolygons
 
         private void PolygonPlaceButton_Click(object sender, EventArgs e)
         {
-            placementMode = PlacementMode.Polygon;
+            placementMode = PlacementMode.RegPolygon;
         }
 
         private void ShapeForm_MouseClick(object sender, MouseEventArgs e)

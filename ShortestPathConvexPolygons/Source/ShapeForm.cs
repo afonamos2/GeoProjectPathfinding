@@ -14,7 +14,7 @@ namespace ShortestPathConvexPolygons
 
         private enum PlacementMode
         {
-            None, Start, Dest, Polygon
+            None, Start, Dest, RegPolygon
         }
 
         private PlacementMode placementMode = PlacementMode.None;
@@ -31,6 +31,23 @@ namespace ShortestPathConvexPolygons
             this.Height = 900;
             PathGenListBox.SelectedIndex = 0; //The box starts at index -1, god knows why
             InitializeGraph();
+        }
+
+        private void InitializeGraph()
+        {
+            this.graph = new Graph();
+            CreatePath();
+        }
+
+        private void CreatePath()
+        {
+            graph.CreateVisibilityGraph();
+            path = pathfinders[PathGenListBox.SelectedIndex](start, dest, graph);
+
+            //Updating labels
+            VerticesLabel.Text = $"Vertices: {graph.Nodes.Count}";
+            NodesExploredLabel.Text = $"Nodes Explored: {path.NodesExplored}";
+            PathDistanceLabel.Text = $"Distance: {path.Distance}";
         }
 
         private void ShapeForm_Paint(object sender, PaintEventArgs e)
@@ -86,23 +103,6 @@ namespace ShortestPathConvexPolygons
             g.FillEllipse(endBrush, endRect);
         }
 
-        private void InitializeGraph()
-        {
-            this.graph = new Graph();
-            CreatePath();
-        }
-
-        private void CreatePath()
-        {
-            graph.CreateVisibilityGraph();
-            path = pathfinders[PathGenListBox.SelectedIndex](start, dest, graph);
-
-            //Updating labels
-            VerticesLabel.Text = $"Vertices: {graph.Nodes.Count}";
-            NodesExploredLabel.Text = $"Nodes Explored: {path.NodesExplored}";
-            PathDistanceLabel.Text = $"Distance: {path.Distance}";
-        }
-
         private void StartPlaceButton_Click(object sender, EventArgs e)
         {
             placementMode = PlacementMode.Start;
@@ -130,7 +130,7 @@ namespace ShortestPathConvexPolygons
                     dest = new Vec2(e.X, e.Y);
                     break;
 
-                case PlacementMode.Polygon:
+                case PlacementMode.RegPolygon:
                     var poly = Polygon.GenerateRegularPolygon(
                         (int)VerticesNumeric.Value, 
                         (float)RadiusNumeric.Value * 10, 

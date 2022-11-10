@@ -124,12 +124,10 @@ namespace ShortestPathConvexPolygons
             {
                 case PlacementMode.Start:
                     start = new Vec2(e.X, e.Y);
-                    placementMode = PlacementMode.None;
                     break;
 
                 case PlacementMode.Dest:
                     dest = new Vec2(e.X, e.Y);
-                    placementMode = PlacementMode.None;
                     break;
 
                 case PlacementMode.Polygon:
@@ -139,12 +137,13 @@ namespace ShortestPathConvexPolygons
                         new Vec2(e.X, e.Y),
                         (float)(RotationNumeric.Value / 360) * (float)(Math.PI * 2.0));
                     graph.AddPolygon(poly);
-                    placementMode = PlacementMode.None;
                     break;
 
                 case PlacementMode.None:
                     break;
             }
+
+            placementMode = PlacementMode.None;
             CreatePath();
             Invalidate();
         }

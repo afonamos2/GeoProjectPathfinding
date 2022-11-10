@@ -53,9 +53,9 @@ namespace ShortestPathConvexPolygons
             this.label4 = new System.Windows.Forms.Label();
             this.NodesExploredLabel = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.label6 = new System.Windows.Forms.Label();
-            this.VerticesLabel = new System.Windows.Forms.Label();
             this.PathDistanceLabel = new System.Windows.Forms.Label();
+            this.VerticesLabel = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.DrawOptionsPanel.SuspendLayout();
             this.PlacementPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RotationNumeric)).BeginInit();
@@ -343,15 +343,14 @@ namespace ShortestPathConvexPolygons
             this.panel2.Size = new System.Drawing.Size(305, 148);
             this.panel2.TabIndex = 6;
             // 
-            // label6
+            // PathDistanceLabel
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label6.Location = new System.Drawing.Point(3, 7);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(108, 29);
-            this.label6.TabIndex = 4;
-            this.label6.Text = "Statistics";
+            this.PathDistanceLabel.AutoSize = true;
+            this.PathDistanceLabel.Location = new System.Drawing.Point(4, 108);
+            this.PathDistanceLabel.Name = "PathDistanceLabel";
+            this.PathDistanceLabel.Size = new System.Drawing.Size(109, 20);
+            this.PathDistanceLabel.TabIndex = 7;
+            this.PathDistanceLabel.Text = "Path Distance";
             // 
             // VerticesLabel
             // 
@@ -362,14 +361,15 @@ namespace ShortestPathConvexPolygons
             this.VerticesLabel.TabIndex = 6;
             this.VerticesLabel.Text = "Vertices";
             // 
-            // PathDistanceLabel
+            // label6
             // 
-            this.PathDistanceLabel.AutoSize = true;
-            this.PathDistanceLabel.Location = new System.Drawing.Point(4, 108);
-            this.PathDistanceLabel.Name = "PathDistanceLabel";
-            this.PathDistanceLabel.Size = new System.Drawing.Size(109, 20);
-            this.PathDistanceLabel.TabIndex = 7;
-            this.PathDistanceLabel.Text = "Path Distance";
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label6.Location = new System.Drawing.Point(3, 7);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(108, 29);
+            this.label6.TabIndex = 4;
+            this.label6.Text = "Statistics";
             // 
             // ShapeForm
             // 

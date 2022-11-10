@@ -17,6 +17,7 @@ public class AStar {
         costs.Add(start, 0f);
 
         int nodeExplored = 0;
+
         while (!queue.IsEmpty) {
             nodeExplored++;
 

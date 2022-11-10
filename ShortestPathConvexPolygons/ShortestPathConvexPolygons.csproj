@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Source\Graph\Graph.Methods.cs" />
     <Compile Include="Source\ShapeForm.cs">
       <SubType>Form</SubType>
     </Compile>

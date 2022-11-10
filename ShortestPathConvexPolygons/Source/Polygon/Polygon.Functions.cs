@@ -7,6 +7,7 @@ public partial class Polygon {
         var poly = new Polygon();
         var anglePerVertex = (Math.PI * 2f) / numVertices;
 
+        //Sampling points in a circle
         for (int i = 0; i < numVertices; i++) {
             poly._vertices.Add(new Vec2(
                 x: (float)Math.Cos(anglePerVertex * i + rotation), 

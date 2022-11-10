@@ -15,6 +15,7 @@ public static class BFS {
         queue.Enqueue(startNode);
 
         int nodeExplored = 0;
+
         while (queue.Count > 0) {
             nodeExplored++;
 

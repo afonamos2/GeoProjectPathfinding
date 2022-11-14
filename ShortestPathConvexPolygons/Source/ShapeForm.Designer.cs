@@ -53,6 +53,7 @@ namespace ShortestPathConvexPolygons
             this.label4 = new System.Windows.Forms.Label();
             this.NodesExploredLabel = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.GraphItemsLabel = new System.Windows.Forms.Label();
             this.PathDistanceLabel = new System.Windows.Forms.Label();
             this.VerticesLabel = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -220,7 +221,7 @@ namespace ShortestPathConvexPolygons
             // 
             this.RadiusNumeric.Location = new System.Drawing.Point(335, 54);
             this.RadiusNumeric.Maximum = new decimal(new int[] {
-            10,
+            25,
             0,
             0,
             0});
@@ -325,7 +326,7 @@ namespace ShortestPathConvexPolygons
             // NodesExploredLabel
             // 
             this.NodesExploredLabel.AutoSize = true;
-            this.NodesExploredLabel.Location = new System.Drawing.Point(4, 78);
+            this.NodesExploredLabel.Location = new System.Drawing.Point(4, 101);
             this.NodesExploredLabel.Name = "NodesExploredLabel";
             this.NodesExploredLabel.Size = new System.Drawing.Size(121, 20);
             this.NodesExploredLabel.TabIndex = 5;
@@ -334,19 +335,30 @@ namespace ShortestPathConvexPolygons
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.PaleGreen;
+            this.panel2.Controls.Add(this.GraphItemsLabel);
             this.panel2.Controls.Add(this.PathDistanceLabel);
             this.panel2.Controls.Add(this.VerticesLabel);
             this.panel2.Controls.Add(this.label6);
             this.panel2.Controls.Add(this.NodesExploredLabel);
             this.panel2.Location = new System.Drawing.Point(840, 12);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(305, 148);
+            this.panel2.Size = new System.Drawing.Size(305, 171);
             this.panel2.TabIndex = 6;
+            // 
+            // GraphItemsLabel
+            // 
+            this.GraphItemsLabel.AutoSize = true;
+            this.GraphItemsLabel.Location = new System.Drawing.Point(4, 77);
+            this.GraphItemsLabel.Name = "GraphItemsLabel";
+            this.GraphItemsLabel.Size = new System.Drawing.Size(96, 24);
+            this.GraphItemsLabel.TabIndex = 8;
+            this.GraphItemsLabel.Text = "Graph Items";
+            this.GraphItemsLabel.UseCompatibleTextRendering = true;
             // 
             // PathDistanceLabel
             // 
             this.PathDistanceLabel.AutoSize = true;
-            this.PathDistanceLabel.Location = new System.Drawing.Point(4, 108);
+            this.PathDistanceLabel.Location = new System.Drawing.Point(4, 128);
             this.PathDistanceLabel.Name = "PathDistanceLabel";
             this.PathDistanceLabel.Size = new System.Drawing.Size(109, 20);
             this.PathDistanceLabel.TabIndex = 7;
@@ -386,6 +398,7 @@ namespace ShortestPathConvexPolygons
             this.Text = "Shortest Path";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.ShapeForm_Paint);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ShapeForm_MouseClick);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ShapeForm_MouseMove);
             this.DrawOptionsPanel.ResumeLayout(false);
             this.DrawOptionsPanel.PerformLayout();
             this.PlacementPanel.ResumeLayout(false);
@@ -429,6 +442,7 @@ namespace ShortestPathConvexPolygons
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label PathDistanceLabel;
         private System.Windows.Forms.Label VerticesLabel;
+        private System.Windows.Forms.Label GraphItemsLabel;
     }
 }
 

@@ -14,9 +14,8 @@ namespace ShortestPathConvexPolygons
 
         private enum PlacementMode
         {
-            None, Start, Dest, RegPolygon
+            None, Start, Dest, RegPolygon, Polygon
         }
-
         private PlacementMode placementMode = PlacementMode.None;
 
         private Pathfinder[] pathfinders =
@@ -48,6 +47,22 @@ namespace ShortestPathConvexPolygons
             VerticesLabel.Text = $"Vertices: {graph.Nodes.Count}";
             NodesExploredLabel.Text = $"Nodes Explored: {path.NodesExplored}";
             PathDistanceLabel.Text = $"Distance: {path.Distance}";
+
+            var graphItems = 0;
+            foreach (var node in graph.Nodes)
+            {
+                graphItems++;
+                foreach (var edge in node.edges)
+                {
+                    graphItems++;
+                }
+                foreach (var neight in node.neighbors)
+                {
+                    graphItems++;
+                }
+            }
+
+            GraphItemsLabel.Text = $"Graph Items: {graphItems}";
         }
 
         private void ShapeForm_Paint(object sender, PaintEventArgs e)
@@ -65,10 +80,10 @@ namespace ShortestPathConvexPolygons
 
             var startRect = new Rectangle(
                 new Point((int)start.x - 10, (int)start.y - 10), 
-                new Size(new Point(20, 20)));
+                new Size(20, 20));
             var endRect = new Rectangle(
                 new Point((int)dest.x - 10, (int)dest.y - 10), 
-                new Size(new Point(20, 20)));
+                new Size(20, 20));
 
             if (DrawPolygons.Checked || DrawVisibilityGraph.Checked)
             {
@@ -181,6 +196,11 @@ namespace ShortestPathConvexPolygons
             if (graph != null) 
                 CreatePath();
             Invalidate();
+        }
+
+        private void ShapeForm_MouseMove(object sender, MouseEventArgs e)
+        {
+            
         }
     }
 }

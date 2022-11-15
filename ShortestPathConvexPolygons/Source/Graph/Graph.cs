@@ -13,6 +13,31 @@ public partial class Graph {
     }
     public bool VisibilityGraph => _visibilityGraph;
 
+    public int ItemCount
+    {
+        get
+        {
+            int count = 0;
+            foreach (var node in _nodes)
+            {
+                count++;
+                foreach (var neighbor in node.neighbors)
+                {
+                    count++;
+                }
+                foreach (var edge in node.edges)
+                {
+                    count++;
+                }
+            }
+            foreach (var poly in _polygons)
+            {
+                count++;
+            }
+            return count;
+        }
+    }
+
     public Graph() {
         _nodes = new List<Node>();
         _polygons = new List<Polygon>();

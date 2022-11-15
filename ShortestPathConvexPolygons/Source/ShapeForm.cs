@@ -47,22 +47,7 @@ namespace ShortestPathConvexPolygons
             VerticesLabel.Text = $"Vertices: {graph.Nodes.Count}";
             NodesExploredLabel.Text = $"Nodes Explored: {path.NodesExplored}";
             PathDistanceLabel.Text = $"Distance: {path.Distance}";
-
-            var graphItems = 0;
-            foreach (var node in graph.Nodes)
-            {
-                graphItems++;
-                foreach (var edge in node.edges)
-                {
-                    graphItems++;
-                }
-                foreach (var neight in node.neighbors)
-                {
-                    graphItems++;
-                }
-            }
-
-            GraphItemsLabel.Text = $"Graph Items: {graphItems}";
+            GraphItemsLabel.Text = $"Graph Items: {path.GraphItems}";
         }
 
         private void ShapeForm_Paint(object sender, PaintEventArgs e)
@@ -186,8 +171,7 @@ namespace ShortestPathConvexPolygons
 
         private void RefreshObjectsButton_Click(object sender, EventArgs e)
         {
-            graph = new Graph();
-            CreatePath();
+            InitializeGraph();
             Invalidate();
         }
 

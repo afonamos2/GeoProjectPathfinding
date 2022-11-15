@@ -51,6 +51,7 @@ public partial class Graph {
             neighbor.neighbors.Remove(node);
         }
         _nodes.Remove(node);
+        _polygons.Remove(node.poly);
     }
 
     public void CreateVisibilityGraph() {

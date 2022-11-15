@@ -56,6 +56,7 @@ public static class BFS {
         Path path = new Path(pathList);
         path.NodesExplored = nodeExplored;
         path.Distance = distance;
+        path.GraphItems = graph.ItemCount;
 
         graph.RemoveNode(startNode);
         graph.RemoveNode(destNode);

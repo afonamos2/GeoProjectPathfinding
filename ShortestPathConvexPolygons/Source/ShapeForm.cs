@@ -18,9 +18,9 @@ namespace ShortestPathConvexPolygons
         }
         private PlacementMode placementMode = PlacementMode.None;
 
-        private Pathfinder[] pathfinders =
+        private Pathfinder.Generator[] pathfinders =
         {
-            BFS.GeneratePath, UCS.GeneratePath, AStar.GeneratePath
+            Pathfinder.BFS, Pathfinder.UCS, Pathfinder.AStar
         };
 
         public ShapeForm()

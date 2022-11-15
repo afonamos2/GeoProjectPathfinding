@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 
-public delegate Path Pathfinder(Vec2 start, Vec2 dest, Graph graph);
-
-public class Path {
+public class Path 
+{
     private int _nodesExplored;
     private List<Vec2> _nodes;
     private float _distance;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace ShortestPathConvexPolygons
 {
@@ -11,6 +12,8 @@ namespace ShortestPathConvexPolygons
 
         private Vec2 start = new Vec2(500, 500);
         private Vec2 dest = new Vec2(600,400);
+
+        static readonly Stopwatch timer = new Stopwatch();
 
         private enum PlacementMode
         {
@@ -40,14 +43,25 @@ namespace ShortestPathConvexPolygons
 
         private void CreatePath()
         {
+            timer.Reset();
+            timer.Start();
             graph.CreateVisibilityGraph();
+            timer.Stop();
+            var visGraphTime = timer.Elapsed.TotalSeconds;
+            timer.Reset();
+            timer.Start();
             path = pathfinders[PathGenListBox.SelectedIndex](start, dest, graph);
+            timer.Stop();
+            var pathTime = timer.Elapsed.TotalSeconds;
 
             //Updating labels
             VerticesLabel.Text = $"Vertices: {graph.Nodes.Count}";
             NodesExploredLabel.Text = $"Nodes Explored: {path.NodesExplored}";
             PathDistanceLabel.Text = $"Distance: {path.Distance}";
             GraphItemsLabel.Text = $"Graph Items: {path.GraphItems}";
+            VGTimeLabel.Text = $"VG Generation: {visGraphTime}";
+            PathTimeLabel.Text = $"Path Generation: {pathTime}";
+            TotalTimeLabel.Text = $"Total Time: {pathTime + visGraphTime}";
         }
 
         private void ShapeForm_Paint(object sender, PaintEventArgs e)

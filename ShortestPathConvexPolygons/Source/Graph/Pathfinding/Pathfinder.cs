@@ -2,8 +2,8 @@
 
 using static Graph;
 
-public static class Pathfinder {
-
+public static class Pathfinder 
+{
     public delegate Path Generator( Vec2 start, Vec2 dest, Graph graph );
     public delegate float Heuristic( Vec2 point, Vec2 dest );
 
@@ -42,11 +42,11 @@ public static class Pathfinder {
 
             foreach ( var neighbor in currNode.neighbors )
             {
-                if ( !visited.Contains(neighbor.vertex) )
+                if ( !visited.Contains( neighbor.vertex ) )
                 {
                     nodeExplored++;
-                    queue.Enqueue(neighbor);
-                    if ( paths.ContainsKey(neighbor.vertex) )
+                    queue.Enqueue( neighbor );
+                    if ( paths.ContainsKey( neighbor.vertex ) )
                     {
                         paths[neighbor.vertex] = currNode.vertex;
                     }
@@ -94,14 +94,14 @@ public static class Pathfinder {
 
             foreach ( var neighbor in currNode.neighbors )
             {
-                if ( !visited.Contains(neighbor.vertex) )
+                if ( !visited.Contains( neighbor.vertex ) )
                 {
                     nodeExplored++;
 
-                    if ( !costs.ContainsKey(neighbor.vertex) )
-                        costs.Add(neighbor.vertex, float.PositiveInfinity);
+                    if ( !costs.ContainsKey( neighbor.vertex ) )
+                        costs.Add( neighbor.vertex, float.PositiveInfinity );
 
-                    float newCost = costs[currNode.vertex] + Vec2Ext.Distance(currNode.vertex, neighbor.vertex);
+                    float newCost = costs[currNode.vertex] + Vec2Ext.Distance( currNode.vertex, neighbor.vertex );
 
                     if ( costs[neighbor.vertex] > newCost )
                     {

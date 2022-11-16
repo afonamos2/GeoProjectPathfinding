@@ -57,6 +57,9 @@ namespace ShortestPathConvexPolygons
             this.PathDistanceLabel = new System.Windows.Forms.Label();
             this.VerticesLabel = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.VGTimeLabel = new System.Windows.Forms.Label();
+            this.PathTimeLabel = new System.Windows.Forms.Label();
+            this.TotalTimeLabel = new System.Windows.Forms.Label();
             this.DrawOptionsPanel.SuspendLayout();
             this.PlacementPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RotationNumeric)).BeginInit();
@@ -326,7 +329,7 @@ namespace ShortestPathConvexPolygons
             // NodesExploredLabel
             // 
             this.NodesExploredLabel.AutoSize = true;
-            this.NodesExploredLabel.Location = new System.Drawing.Point(4, 101);
+            this.NodesExploredLabel.Location = new System.Drawing.Point(4, 85);
             this.NodesExploredLabel.Name = "NodesExploredLabel";
             this.NodesExploredLabel.Size = new System.Drawing.Size(121, 20);
             this.NodesExploredLabel.TabIndex = 5;
@@ -335,6 +338,9 @@ namespace ShortestPathConvexPolygons
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.PaleGreen;
+            this.panel2.Controls.Add(this.TotalTimeLabel);
+            this.panel2.Controls.Add(this.PathTimeLabel);
+            this.panel2.Controls.Add(this.VGTimeLabel);
             this.panel2.Controls.Add(this.GraphItemsLabel);
             this.panel2.Controls.Add(this.PathDistanceLabel);
             this.panel2.Controls.Add(this.VerticesLabel);
@@ -342,13 +348,13 @@ namespace ShortestPathConvexPolygons
             this.panel2.Controls.Add(this.NodesExploredLabel);
             this.panel2.Location = new System.Drawing.Point(840, 12);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(305, 171);
+            this.panel2.Size = new System.Drawing.Size(305, 217);
             this.panel2.TabIndex = 6;
             // 
             // GraphItemsLabel
             // 
             this.GraphItemsLabel.AutoSize = true;
-            this.GraphItemsLabel.Location = new System.Drawing.Point(4, 77);
+            this.GraphItemsLabel.Location = new System.Drawing.Point(4, 60);
             this.GraphItemsLabel.Name = "GraphItemsLabel";
             this.GraphItemsLabel.Size = new System.Drawing.Size(96, 24);
             this.GraphItemsLabel.TabIndex = 8;
@@ -358,7 +364,7 @@ namespace ShortestPathConvexPolygons
             // PathDistanceLabel
             // 
             this.PathDistanceLabel.AutoSize = true;
-            this.PathDistanceLabel.Location = new System.Drawing.Point(4, 128);
+            this.PathDistanceLabel.Location = new System.Drawing.Point(4, 185);
             this.PathDistanceLabel.Name = "PathDistanceLabel";
             this.PathDistanceLabel.Size = new System.Drawing.Size(109, 20);
             this.PathDistanceLabel.TabIndex = 7;
@@ -367,7 +373,7 @@ namespace ShortestPathConvexPolygons
             // VerticesLabel
             // 
             this.VerticesLabel.AutoSize = true;
-            this.VerticesLabel.Location = new System.Drawing.Point(4, 51);
+            this.VerticesLabel.Location = new System.Drawing.Point(4, 35);
             this.VerticesLabel.Name = "VerticesLabel";
             this.VerticesLabel.Size = new System.Drawing.Size(67, 20);
             this.VerticesLabel.TabIndex = 6;
@@ -382,6 +388,33 @@ namespace ShortestPathConvexPolygons
             this.label6.Size = new System.Drawing.Size(108, 29);
             this.label6.TabIndex = 4;
             this.label6.Text = "Statistics";
+            // 
+            // VGTimeLabel
+            // 
+            this.VGTimeLabel.AutoSize = true;
+            this.VGTimeLabel.Location = new System.Drawing.Point(4, 110);
+            this.VGTimeLabel.Name = "VGTimeLabel";
+            this.VGTimeLabel.Size = new System.Drawing.Size(102, 20);
+            this.VGTimeLabel.TabIndex = 9;
+            this.VGTimeLabel.Text = "Vis Graph (s)";
+            // 
+            // PathTimeLabel
+            // 
+            this.PathTimeLabel.AutoSize = true;
+            this.PathTimeLabel.Location = new System.Drawing.Point(4, 135);
+            this.PathTimeLabel.Name = "PathTimeLabel";
+            this.PathTimeLabel.Size = new System.Drawing.Size(64, 20);
+            this.PathTimeLabel.TabIndex = 10;
+            this.PathTimeLabel.Text = "Path (s)";
+            // 
+            // TotalTimeLabel
+            // 
+            this.TotalTimeLabel.AutoSize = true;
+            this.TotalTimeLabel.Location = new System.Drawing.Point(3, 160);
+            this.TotalTimeLabel.Name = "TotalTimeLabel";
+            this.TotalTimeLabel.Size = new System.Drawing.Size(100, 20);
+            this.TotalTimeLabel.TabIndex = 11;
+            this.TotalTimeLabel.Text = "Total time (s)";
             // 
             // ShapeForm
             // 
@@ -443,6 +476,9 @@ namespace ShortestPathConvexPolygons
         private System.Windows.Forms.Label PathDistanceLabel;
         private System.Windows.Forms.Label VerticesLabel;
         private System.Windows.Forms.Label GraphItemsLabel;
+        private System.Windows.Forms.Label VGTimeLabel;
+        private System.Windows.Forms.Label PathTimeLabel;
+        private System.Windows.Forms.Label TotalTimeLabel;
     }
 }
 

@@ -53,13 +53,14 @@ namespace ShortestPathConvexPolygons
             this.label4 = new System.Windows.Forms.Label();
             this.NodesExploredLabel = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.TotalTimeLabel = new System.Windows.Forms.Label();
+            this.PathTimeLabel = new System.Windows.Forms.Label();
+            this.VGTimeLabel = new System.Windows.Forms.Label();
             this.GraphItemsLabel = new System.Windows.Forms.Label();
             this.PathDistanceLabel = new System.Windows.Forms.Label();
             this.VerticesLabel = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.VGTimeLabel = new System.Windows.Forms.Label();
-            this.PathTimeLabel = new System.Windows.Forms.Label();
-            this.TotalTimeLabel = new System.Windows.Forms.Label();
+            this.FastCheck = new System.Windows.Forms.CheckBox();
             this.DrawOptionsPanel.SuspendLayout();
             this.PlacementPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RotationNumeric)).BeginInit();
@@ -338,6 +339,7 @@ namespace ShortestPathConvexPolygons
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.PaleGreen;
+            this.panel2.Controls.Add(this.FastCheck);
             this.panel2.Controls.Add(this.TotalTimeLabel);
             this.panel2.Controls.Add(this.PathTimeLabel);
             this.panel2.Controls.Add(this.VGTimeLabel);
@@ -350,6 +352,33 @@ namespace ShortestPathConvexPolygons
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(305, 217);
             this.panel2.TabIndex = 6;
+            // 
+            // TotalTimeLabel
+            // 
+            this.TotalTimeLabel.AutoSize = true;
+            this.TotalTimeLabel.Location = new System.Drawing.Point(3, 160);
+            this.TotalTimeLabel.Name = "TotalTimeLabel";
+            this.TotalTimeLabel.Size = new System.Drawing.Size(100, 20);
+            this.TotalTimeLabel.TabIndex = 11;
+            this.TotalTimeLabel.Text = "Total time (s)";
+            // 
+            // PathTimeLabel
+            // 
+            this.PathTimeLabel.AutoSize = true;
+            this.PathTimeLabel.Location = new System.Drawing.Point(4, 135);
+            this.PathTimeLabel.Name = "PathTimeLabel";
+            this.PathTimeLabel.Size = new System.Drawing.Size(64, 20);
+            this.PathTimeLabel.TabIndex = 10;
+            this.PathTimeLabel.Text = "Path (s)";
+            // 
+            // VGTimeLabel
+            // 
+            this.VGTimeLabel.AutoSize = true;
+            this.VGTimeLabel.Location = new System.Drawing.Point(4, 110);
+            this.VGTimeLabel.Name = "VGTimeLabel";
+            this.VGTimeLabel.Size = new System.Drawing.Size(102, 20);
+            this.VGTimeLabel.TabIndex = 9;
+            this.VGTimeLabel.Text = "Vis Graph (s)";
             // 
             // GraphItemsLabel
             // 
@@ -389,32 +418,15 @@ namespace ShortestPathConvexPolygons
             this.label6.TabIndex = 4;
             this.label6.Text = "Statistics";
             // 
-            // VGTimeLabel
+            // FastCheck
             // 
-            this.VGTimeLabel.AutoSize = true;
-            this.VGTimeLabel.Location = new System.Drawing.Point(4, 110);
-            this.VGTimeLabel.Name = "VGTimeLabel";
-            this.VGTimeLabel.Size = new System.Drawing.Size(102, 20);
-            this.VGTimeLabel.TabIndex = 9;
-            this.VGTimeLabel.Text = "Vis Graph (s)";
-            // 
-            // PathTimeLabel
-            // 
-            this.PathTimeLabel.AutoSize = true;
-            this.PathTimeLabel.Location = new System.Drawing.Point(4, 135);
-            this.PathTimeLabel.Name = "PathTimeLabel";
-            this.PathTimeLabel.Size = new System.Drawing.Size(64, 20);
-            this.PathTimeLabel.TabIndex = 10;
-            this.PathTimeLabel.Text = "Path (s)";
-            // 
-            // TotalTimeLabel
-            // 
-            this.TotalTimeLabel.AutoSize = true;
-            this.TotalTimeLabel.Location = new System.Drawing.Point(3, 160);
-            this.TotalTimeLabel.Name = "TotalTimeLabel";
-            this.TotalTimeLabel.Size = new System.Drawing.Size(100, 20);
-            this.TotalTimeLabel.TabIndex = 11;
-            this.TotalTimeLabel.Text = "Total time (s)";
+            this.FastCheck.AutoSize = true;
+            this.FastCheck.Location = new System.Drawing.Point(173, 184);
+            this.FastCheck.Name = "FastCheck";
+            this.FastCheck.Size = new System.Drawing.Size(113, 24);
+            this.FastCheck.TabIndex = 12;
+            this.FastCheck.Text = "checkBox1";
+            this.FastCheck.UseVisualStyleBackColor = true;
             // 
             // ShapeForm
             // 
@@ -431,7 +443,6 @@ namespace ShortestPathConvexPolygons
             this.Text = "Shortest Path";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.ShapeForm_Paint);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ShapeForm_MouseClick);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ShapeForm_MouseMove);
             this.DrawOptionsPanel.ResumeLayout(false);
             this.DrawOptionsPanel.PerformLayout();
             this.PlacementPanel.ResumeLayout(false);
@@ -479,6 +490,7 @@ namespace ShortestPathConvexPolygons
         private System.Windows.Forms.Label VGTimeLabel;
         private System.Windows.Forms.Label PathTimeLabel;
         private System.Windows.Forms.Label TotalTimeLabel;
+        private System.Windows.Forms.CheckBox FastCheck;
     }
 }
 

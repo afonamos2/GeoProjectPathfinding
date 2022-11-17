@@ -7,6 +7,12 @@ namespace ShortestPathConvexPolygons
 {
     public partial class ShapeForm : Form
     {
+        private static readonly Pen edgePen = new Pen(Color.Green);
+        private static readonly Pen pathPen = new Pen(Color.Purple);
+        private static readonly Pen visPen = new Pen(Color.Lavender);
+        private static readonly Brush startBrush = new SolidBrush(Color.Cyan);
+        private static readonly Brush endBrush = new SolidBrush(Color.Red);
+
         private Graph graph;
         private Path path;
 
@@ -20,8 +26,8 @@ namespace ShortestPathConvexPolygons
             None, Start, Dest, RegPolygon, Polygon
         }
         private PlacementMode placementMode = PlacementMode.None;
-
-        private Pathfinder.Generator[] pathfinders =
+        
+        private static readonly Pathfinder.Generator[] pathfinders =
         {
             Pathfinder.BFS, Pathfinder.UCS, Pathfinder.AStar
         };
@@ -45,9 +51,13 @@ namespace ShortestPathConvexPolygons
         {
             timer.Reset();
             timer.Start();
-            graph.CreateVisibilityGraph();
+            if (FastCheck.Checked)
+                graph.CreateFastVisibilityGraph();
+            else
+                graph.CreateVisibilityGraph();
             timer.Stop();
             var visGraphTime = timer.Elapsed.TotalSeconds;
+
             timer.Reset();
             timer.Start();
             path = pathfinders[PathGenListBox.SelectedIndex](start, dest, graph);
@@ -68,20 +78,11 @@ namespace ShortestPathConvexPolygons
         {
             Graphics g = e.Graphics;
 
-            Pen startPen = new Pen(Color.Cyan);
-            Pen endPoint = new Pen(Color.Red);
-            Pen edgePen = new Pen(Color.Green);
-            Pen pathPen = new Pen(Color.Purple);
-            Pen visPen = new Pen(Color.Lavender);
-
-            Brush startBrush = new SolidBrush(Color.Cyan);
-            Brush endBrush = new SolidBrush(Color.Red);
-
             var startRect = new Rectangle(
-                new Point((int)start.x - 10, (int)start.y - 10), 
+                new Point((int)start.x - 10, (int)start.y - 10),
                 new Size(20, 20));
             var endRect = new Rectangle(
-                new Point((int)dest.x - 10, (int)dest.y - 10), 
+                new Point((int)dest.x - 10, (int)dest.y - 10),
                 new Size(20, 20));
 
             if (DrawPolygons.Checked || DrawVisibilityGraph.Checked)
@@ -157,9 +158,13 @@ namespace ShortestPathConvexPolygons
                     break;
             }
 
+            //Only update when needed
+            if (placementMode != PlacementMode.None)
+            {
+                CreatePath();
+                Invalidate();
+            }
             placementMode = PlacementMode.None;
-            CreatePath();
-            Invalidate();
         }
 
         private void PathGenButton_Click(object sender, EventArgs e)
@@ -191,14 +196,11 @@ namespace ShortestPathConvexPolygons
 
         private void PathGenListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (graph != null) 
+            if (graph != null)
                 CreatePath();
+            else
+                InitializeGraph();
             Invalidate();
-        }
-
-        private void ShapeForm_MouseMove(object sender, MouseEventArgs e)
-        {
-            
         }
     }
 }

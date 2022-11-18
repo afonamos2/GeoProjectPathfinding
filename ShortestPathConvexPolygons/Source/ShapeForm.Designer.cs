@@ -60,7 +60,6 @@ namespace ShortestPathConvexPolygons
             this.PathDistanceLabel = new System.Windows.Forms.Label();
             this.VerticesLabel = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.FastCheck = new System.Windows.Forms.CheckBox();
             this.DrawOptionsPanel.SuspendLayout();
             this.PlacementPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RotationNumeric)).BeginInit();
@@ -339,7 +338,6 @@ namespace ShortestPathConvexPolygons
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.PaleGreen;
-            this.panel2.Controls.Add(this.FastCheck);
             this.panel2.Controls.Add(this.TotalTimeLabel);
             this.panel2.Controls.Add(this.PathTimeLabel);
             this.panel2.Controls.Add(this.VGTimeLabel);
@@ -418,16 +416,6 @@ namespace ShortestPathConvexPolygons
             this.label6.TabIndex = 4;
             this.label6.Text = "Statistics";
             // 
-            // FastCheck
-            // 
-            this.FastCheck.AutoSize = true;
-            this.FastCheck.Location = new System.Drawing.Point(173, 184);
-            this.FastCheck.Name = "FastCheck";
-            this.FastCheck.Size = new System.Drawing.Size(113, 24);
-            this.FastCheck.TabIndex = 12;
-            this.FastCheck.Text = "checkBox1";
-            this.FastCheck.UseVisualStyleBackColor = true;
-            // 
             // ShapeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -490,7 +478,6 @@ namespace ShortestPathConvexPolygons
         private System.Windows.Forms.Label VGTimeLabel;
         private System.Windows.Forms.Label PathTimeLabel;
         private System.Windows.Forms.Label TotalTimeLabel;
-        private System.Windows.Forms.CheckBox FastCheck;
     }
 }
 

@@ -86,9 +86,8 @@ public static class Vec2Ext
 
     public static void SwapByIndex(int a, int b, ref Vec2[] array)
     {
-        Vec2 temp = array[a];
-        array[a] = array[b];
-        array[b] = temp;
+        //Swapping by index using a tuple
+        (array[a], array[b]) = (array[b], array[a]);
     }
 
     public static float SqrDist(Vec2 a, Vec2 b)
@@ -105,6 +104,6 @@ public static class Vec2Ext
     public static float GetAngle(Vec2 point, Vec2 origin)
     {
         var relativePoint = point - origin;
-        return (float)Math.Atan2(relativePoint.y, relativePoint.x);
+        return (float)(Math.Atan2(relativePoint.y, relativePoint.x));
     }
 }

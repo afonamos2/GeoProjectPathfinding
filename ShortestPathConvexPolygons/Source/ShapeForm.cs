@@ -16,10 +16,15 @@ namespace ShortestPathConvexPolygons
         private Graph graph;
         private Path path;
 
-        private Vec2 start = new Vec2(500, 500);
-        private Vec2 dest = new Vec2(600,400);
+        private Vec2 startVec = new Vec2(500, 500);
+        private Vec2 destVec = new Vec2(600,400);
+
+        private Graph.Node startNode;
+        private Graph.Node destNode;
 
         static readonly Stopwatch timer = new Stopwatch();
+        private double visGraphGenTime = 0;
+        private double pathGenTime = 0;
 
         private enum PlacementMode
         {
@@ -44,34 +49,62 @@ namespace ShortestPathConvexPolygons
         private void InitializeGraph()
         {
             this.graph = new Graph();
-            CreatePath();
+            startNode = graph.AddPoint(startVec);
+            destNode = graph.AddPoint(destVec);
+            UpdateGraph();
         }
 
-        private void CreatePath()
+        private void UpdateGraph()
+        {
+            UpdatePoints();
+            CreateVisibilityGraph();
+            CreatePath();
+            UpdateLabels();
+            Invalidate();
+        }
+
+        private void CreateVisibilityGraph()
         {
             timer.Reset();
             timer.Start();
-            if (FastCheck.Checked)
-                graph.CreateFastVisibilityGraph();
-            else
-                graph.CreateVisibilityGraph();
+            graph.CreateVisibilityGraph();
             timer.Stop();
-            var visGraphTime = timer.Elapsed.TotalSeconds;
+            visGraphGenTime = timer.Elapsed.TotalSeconds;
 
+            if (graph != null && path != null)
+                UpdateLabels();
+        }
+
+        private void CreatePath()
+        { 
             timer.Reset();
             timer.Start();
-            path = pathfinders[PathGenListBox.SelectedIndex](start, dest, graph);
+            path = pathfinders[PathGenListBox.SelectedIndex](startNode, destNode, graph);
             timer.Stop();
-            var pathTime = timer.Elapsed.TotalSeconds;
+            pathGenTime = timer.Elapsed.TotalSeconds;
 
-            //Updating labels
+            if (graph != null && path != null)
+                UpdateLabels();
+        }
+
+        private void UpdatePoints()
+        {
+            graph.RemoveNode(startNode);
+            startNode = graph.AddPoint(startVec);
+
+            graph.RemoveNode(destNode);
+            destNode = graph.AddPoint(destVec);
+        }
+
+        private void UpdateLabels()
+        {
             VerticesLabel.Text = $"Vertices: {graph.Nodes.Count}";
             NodesExploredLabel.Text = $"Nodes Explored: {path.NodesExplored}";
             PathDistanceLabel.Text = $"Distance: {path.Distance}";
             GraphItemsLabel.Text = $"Graph Items: {path.GraphItems}";
-            VGTimeLabel.Text = $"VG Generation: {visGraphTime}";
-            PathTimeLabel.Text = $"Path Generation: {pathTime}";
-            TotalTimeLabel.Text = $"Total Time: {pathTime + visGraphTime}";
+            VGTimeLabel.Text = $"VG Generation: {visGraphGenTime}";
+            PathTimeLabel.Text = $"Path Generation: {pathGenTime}";
+            TotalTimeLabel.Text = $"Total Time: {pathGenTime + visGraphGenTime}";
         }
 
         private void ShapeForm_Paint(object sender, PaintEventArgs e)
@@ -79,10 +112,10 @@ namespace ShortestPathConvexPolygons
             Graphics g = e.Graphics;
 
             var startRect = new Rectangle(
-                new Point((int)start.x - 10, (int)start.y - 10),
+                new Point((int)startVec.x - 10, (int)startVec.y - 10),
                 new Size(20, 20));
             var endRect = new Rectangle(
-                new Point((int)dest.x - 10, (int)dest.y - 10),
+                new Point((int)destVec.x - 10, (int)destVec.y - 10),
                 new Size(20, 20));
 
             if (DrawPolygons.Checked || DrawVisibilityGraph.Checked)
@@ -138,11 +171,13 @@ namespace ShortestPathConvexPolygons
             switch (placementMode)
             {
                 case PlacementMode.Start:
-                    start = new Vec2(e.X, e.Y);
+                    startVec = new Vec2(e.X, e.Y);
+                    UpdatePoints();
                     break;
 
                 case PlacementMode.Dest:
-                    dest = new Vec2(e.X, e.Y);
+                    destVec = new Vec2(e.X, e.Y);
+                    UpdatePoints();
                     break;
 
                 case PlacementMode.RegPolygon:
@@ -152,18 +187,15 @@ namespace ShortestPathConvexPolygons
                         new Vec2(e.X, e.Y),
                         (float)(RotationNumeric.Value / 360) * (float)(Math.PI * 2.0));
                     graph.AddPolygon(poly);
+                    UpdateGraph();
                     break;
 
                 case PlacementMode.None:
                     break;
             }
 
-            //Only update when needed
-            if (placementMode != PlacementMode.None)
-            {
-                CreatePath();
-                Invalidate();
-            }
+            CreatePath();
+            Invalidate();
             placementMode = PlacementMode.None;
         }
 
@@ -191,7 +223,6 @@ namespace ShortestPathConvexPolygons
         private void RefreshObjectsButton_Click(object sender, EventArgs e)
         {
             InitializeGraph();
-            Invalidate();
         }
 
         private void PathGenListBox_SelectedIndexChanged(object sender, EventArgs e)

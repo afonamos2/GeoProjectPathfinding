@@ -45,6 +45,8 @@ public struct Vec2
 
     public override int GetHashCode() => Tuple.Create(x, y).GetHashCode();
 
+    public override string ToString() => $"({x}, {y})";
+
     public class SortByX : IComparer<Vec2>
     {
         public int Compare(Vec2 a, Vec2 b) => (a.x > b.x) ? 1 : -1;

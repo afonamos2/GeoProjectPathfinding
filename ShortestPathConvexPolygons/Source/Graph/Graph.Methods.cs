@@ -14,7 +14,6 @@ public partial class Graph
             node.vertex = vertices[i];
             node.neighbors = new List<Node>();
             node.edges = new List<Vec2>();
-            node.poly = polygon;
             newNodes.Add(node);
         }
 
@@ -26,7 +25,6 @@ public partial class Graph
             newNodes[i].neighbors.Add(newNodes[Util.Mod(i + 1, vertices.Count)]);
         }
 
-        _polygons.Add(polygon);
         _nodes.AddRange(newNodes);
     }
 
@@ -37,13 +35,9 @@ public partial class Graph
         node.neighbors = new List<Node>();
         node.edges = new List<Vec2>();
 
-        node.poly = new Polygon();
-        node.poly.Vertices = new List<Vec2>();
-        node.poly.Vertices.Add(point);
 
         AddVisibleNeighbors(node);
         _nodes.Add(node);
-        _polygons.Add(node.poly);
 
         return node;
     }
@@ -51,12 +45,11 @@ public partial class Graph
     //Guaranteed to create bugs
     public void RemoveNode(Node node)
     {
-        foreach (var neighbor in node.neighbors)
-        {
-            neighbor.neighbors.Remove(node);
-        }
         _nodes.Remove(node);
-        _polygons.Remove(node.poly);
+        foreach (var nodeLeft in _nodes)
+        {
+            nodeLeft.neighbors.Remove(node);
+        }
     }
 
     public void CreateVisibilityGraph()
@@ -68,9 +61,7 @@ public partial class Graph
             {
                 //First two neighbors are the edges (scuffed)
                 if (node.edges.Count > 1 && node.neighbors.Count > 2)
-                {
                     node.neighbors.RemoveRange(2, node.neighbors.Count - 2);
-                }
             }
         }
 
@@ -81,45 +72,28 @@ public partial class Graph
         _visibilityGraph = true;
     }
 
-    public void CreateFastVisibilityGraph()
+    //Prunes nodes between the edges of a node, cuts vis graph generation time in about half
+    public List<Node> NodesBetweenEdges(Node baseNode)
     {
-        // Cleaning up current visibility graph
-        if (_visibilityGraph)
+        if (baseNode.edges.Count < 2)
+            return _nodes;
+
+        var prunedNodes = new List<Node>();
+        var orientation = Vec2Ext.FindOrientation(baseNode.vertex, baseNode.edges[0], baseNode.edges[1]);
+
+        foreach (var node in _nodes)
         {
-            foreach (var node in _nodes)
-            {
-                //First two neighbors are the edges (scuffed)
-                if (node.edges.Count > 1 && node.neighbors.Count > 2)
-                {
-                    node.neighbors.RemoveRange(2, node.neighbors.Count - 2);
-                }
+            if (node.vertex == baseNode.vertex)
+                continue;
+            if (Vec2Ext.FindOrientation(node.vertex, baseNode.edges[0], baseNode.edges[1]) == orientation ||
+                Vec2Ext.FindOrientation(node.vertex, baseNode.vertex, baseNode.edges[0]) ==
+                Vec2Ext.FindOrientation(node.vertex, baseNode.vertex, baseNode.edges[1])
+            ){
+                prunedNodes.Add(node);
             }
         }
 
-        foreach (var node in _nodes)
-        {
-            AddVisibileNeighborsFast(node);
-        }
-        _visibilityGraph = true;
-    }
-
-    public List<Node> NodesBetweenEdges(Node baseNode)
-    {
-        var prunedNodes = new List<Node>();
-        var topAngle = Vec2Ext.GetAngle(baseNode.edges[0], baseNode.vertex);
-        var botAngle = Vec2Ext.GetAngle(baseNode.edges[1], baseNode.vertex);
-
-        if (botAngle > topAngle)
-        {
-            (topAngle, botAngle) = (botAngle, topAngle);
-        }
-
-        foreach (var node in _nodes)
-        {
-            var nodeAngle = Vec2Ext.GetAngle(node.vertex, baseNode.vertex);
-            if (nodeAngle > botAngle && nodeAngle < topAngle)
-                prunedNodes.Add(node);
-        }
+        Console.WriteLine("\n");
 
         return prunedNodes;
     }
@@ -131,14 +105,28 @@ public partial class Graph
             foreach (var edge in node.edges)
             {
                 if (Vec2Ext.Intersect(a, b, node.vertex, edge))
-                {
                     return true;
-                }
             }
         }
         return false;
     }
 
+    private void AddVisibleNeighbors(Node node)
+    {
+        foreach (var dest in NodesBetweenEdges(node))
+        {
+            if (!LineIntersectsPolygon(node.vertex, dest.vertex))
+            {
+                if (!node.neighbors.Contains(dest))
+                    node.neighbors.Add(dest);
+                if (!dest.neighbors.Contains(node))
+                    dest.neighbors.Add(node);
+            }
+        }
+    }
+
+    //Slow versions of functions
+    /*
     private void AddVisibleNeighbors(Node node)
     {
         foreach (var dest in _nodes)
@@ -152,18 +140,5 @@ public partial class Graph
             }
         }
     }
-
-    private void AddVisibileNeighborsFast(Node node)
-    {
-        foreach (var dest in NodesBetweenEdges(node))
-        {
-            if (!dest.poly.Equals(node.poly) && !LineIntersectsPolygon(node.vertex, dest.vertex))
-            {
-                if (!node.neighbors.Contains(dest))
-                    node.neighbors.Add(dest);
-                if (!dest.neighbors.Contains(node))
-                    dest.neighbors.Add(node);
-            }
-        }
-    }
+    */
 }

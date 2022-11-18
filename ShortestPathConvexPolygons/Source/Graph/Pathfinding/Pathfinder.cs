@@ -4,28 +4,28 @@ using static Graph;
 
 public static class Pathfinder
 {
-    public delegate Path Generator(Vec2 start, Vec2 dest, Graph graph);
+    public delegate Path Generator(Node start, Node dest, Graph graph);
     public delegate float Heuristic(Vec2 point, Vec2 dest);
 
     public static float NullHeuristic(Vec2 point, Vec2 dest) => 0f;
 
-    public static Path BFS(Vec2 start, Vec2 dest, Graph graph) =>
+    public static Path BFS(Node start, Node dest, Graph graph) =>
         GeneratePath(start, dest, graph);
 
-    public static Path UCS(Vec2 start, Vec2 dest, Graph graph) =>
+    public static Path UCS(Node start, Node dest, Graph graph) =>
         GenerateWeightedPath(start, dest, graph, NullHeuristic);
 
-    public static Path AStar(Vec2 start, Vec2 dest, Graph graph) =>
+    public static Path AStar(Node start, Node dest, Graph graph) =>
         GenerateWeightedPath(start, dest, graph, Vec2Ext.Distance);
 
-    private static Path GeneratePath(Vec2 start, Vec2 dest, Graph graph)
+    private static Path GeneratePath(Node startNode, Node destNode, Graph graph)
     {
         Queue<Node> queue = new Queue<Node>();
         HashSet<Vec2> visited = new HashSet<Vec2>();
         Dictionary<Vec2, Vec2> paths = new Dictionary<Vec2, Vec2>();
 
-        Node destNode = graph.AddPoint(dest);
-        Node startNode = graph.AddPoint(start);
+        var start = startNode.vertex;
+        var dest = destNode.vertex;
 
         queue.Enqueue(startNode);
 
@@ -62,21 +62,18 @@ public static class Pathfinder
         path.NodesExplored = nodeExplored;
         path.GraphItems = graph.ItemCount;
 
-        graph.RemoveNode(startNode);
-        graph.RemoveNode(destNode);
-
         return path;
     }
 
-    private static Path GenerateWeightedPath(Vec2 start, Vec2 dest, Graph graph, Heuristic heuristic)
+    private static Path GenerateWeightedPath(Node startNode, Node destNode, Graph graph, Heuristic heuristic)
     {
         PriorityQueue<float, Node> queue = new PriorityQueue<float, Node>();
         HashSet<Vec2> visited = new HashSet<Vec2>();
         Dictionary<Vec2, Vec2> paths = new Dictionary<Vec2, Vec2>();
         Dictionary<Vec2, float> costs = new Dictionary<Vec2, float>();
 
-        Node destNode = graph.AddPoint(dest);
-        Node startNode = graph.AddPoint(start);
+        var start = startNode.vertex;
+        var dest = destNode.vertex;
 
         queue.Enqueue(0f, startNode);
         costs.Add(start, 0f);
@@ -120,9 +117,6 @@ public static class Pathfinder
         Path path = BacktrackToGetPath(paths, start, dest);
         path.NodesExplored = nodeExplored;
         path.GraphItems = graph.ItemCount;
-
-        graph.RemoveNode(startNode);
-        graph.RemoveNode(destNode);
 
         return path;
     }

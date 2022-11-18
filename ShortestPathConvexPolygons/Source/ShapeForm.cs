@@ -7,6 +7,7 @@ namespace ShortestPathConvexPolygons
 {
     public partial class ShapeForm : Form
     {
+        private static readonly Pen tempPolyPen = new Pen(Color.BlueViolet);
         private static readonly Pen edgePen = new Pen(Color.Green);
         private static readonly Pen pathPen = new Pen(Color.Purple);
         private static readonly Pen visPen = new Pen(Color.Lavender);
@@ -25,6 +26,10 @@ namespace ShortestPathConvexPolygons
         static readonly Stopwatch timer = new Stopwatch();
         private double visGraphGenTime = 0;
         private double pathGenTime = 0;
+
+        // There is definitely a cleaner way to do this, but its 1 AM
+        // Holds a temp polygon for adding freeform polygons
+        private Polygon tempPolygon = null;
 
         private enum PlacementMode
         {
@@ -59,8 +64,15 @@ namespace ShortestPathConvexPolygons
             UpdatePoints();
             CreateVisibilityGraph();
             CreatePath();
-            UpdateLabels();
-            Invalidate();
+        }
+
+        private void UpdatePoints()
+        {
+            graph.RemoveNode(startNode);
+            startNode = graph.AddPoint(startVec);
+
+            graph.RemoveNode(destNode);
+            destNode = graph.AddPoint(destVec);
         }
 
         private void CreateVisibilityGraph()
@@ -87,14 +99,6 @@ namespace ShortestPathConvexPolygons
                 UpdateLabels();
         }
 
-        private void UpdatePoints()
-        {
-            graph.RemoveNode(startNode);
-            startNode = graph.AddPoint(startVec);
-
-            graph.RemoveNode(destNode);
-            destNode = graph.AddPoint(destVec);
-        }
 
         private void UpdateLabels()
         {
@@ -120,6 +124,7 @@ namespace ShortestPathConvexPolygons
 
             if (DrawPolygons.Checked || DrawVisibilityGraph.Checked)
             {
+                // Drawing polygons & vis graph
                 foreach (var node in graph.Nodes)
                 {
                     if (DrawVisibilityGraph.Checked)
@@ -139,8 +144,18 @@ namespace ShortestPathConvexPolygons
                 }
             }
 
+            // Drawing temp polygon
+            if (tempPolygon != null)
+            {
+                for (int i = 0; i < tempPolygon.Vertices.Count - 1; i++)
+                {
+                    g.DrawLine(tempPolyPen, tempPolygon.Vertices[i].x, tempPolygon.Vertices[i].y, tempPolygon.Vertices[i + 1].x, tempPolygon.Vertices[i + 1].y);
+                }
+            }
+
             if (DrawPath.Checked)
             {
+                // Drawing path
                 for (int i = 0; i < path.Nodes.Count - 1; i++)
                 {
                     g.DrawLine(pathPen, path.Nodes[i].x, path.Nodes[i].y, path.Nodes[i + 1].x, path.Nodes[i + 1].y);
@@ -149,21 +164,6 @@ namespace ShortestPathConvexPolygons
 
             g.FillEllipse(startBrush, startRect);
             g.FillEllipse(endBrush, endRect);
-        }
-
-        private void StartPlaceButton_Click(object sender, EventArgs e)
-        {
-            placementMode = PlacementMode.Start;
-        }
-
-        private void DestPlaceButton_Click(object sender, EventArgs e)
-        {
-            placementMode = PlacementMode.Dest;
-        }
-
-        private void PolygonPlaceButton_Click(object sender, EventArgs e)
-        {
-            placementMode = PlacementMode.RegPolygon;
         }
 
         private void ShapeForm_MouseClick(object sender, MouseEventArgs e)
@@ -190,13 +190,59 @@ namespace ShortestPathConvexPolygons
                     UpdateGraph();
                     break;
 
+                case PlacementMode.Polygon:
+                    if (tempPolygon != null)
+                    {
+                        tempPolygon.AddPoint(new Vec2(e.X, e.Y));
+                    }
+                    else
+                    {
+                        tempPolygon = new Polygon();
+                        tempPolygon.AddPoint(new Vec2(e.X, e.Y));
+                    }
+                    break;
+
                 case PlacementMode.None:
                     break;
             }
 
-            CreatePath();
-            Invalidate();
-            placementMode = PlacementMode.None;
+            // Only updating when a change has been mande
+            if (placementMode != PlacementMode.None)
+            {
+                CreatePath();
+                Invalidate();
+            }
+
+            // Ctrl allows multiplacement
+            if (!(Control.ModifierKeys == Keys.Control))
+            {
+                if (placementMode == PlacementMode.Polygon)
+                {
+                    graph.AddPolygon(tempPolygon);
+                    tempPolygon = null;
+                }
+                placementMode = PlacementMode.None;
+            }
+        }
+
+        private void StartPlaceButton_Click(object sender, EventArgs e)
+        {
+            placementMode = PlacementMode.Start;
+        }
+
+        private void DestPlaceButton_Click(object sender, EventArgs e)
+        {
+            placementMode = PlacementMode.Dest;
+        }
+
+        private void RegPolygonPlaceButton_Click(object sender, EventArgs e)
+        {
+            placementMode = PlacementMode.RegPolygon;
+        }
+
+        private void FreePolygonPlaceButton_Click(object sender, EventArgs e)
+        {
+            placementMode = PlacementMode.Polygon;
         }
 
         private void PathGenButton_Click(object sender, EventArgs e)
@@ -223,6 +269,7 @@ namespace ShortestPathConvexPolygons
         private void RefreshObjectsButton_Click(object sender, EventArgs e)
         {
             InitializeGraph();
+            Invalidate();
         }
 
         private void PathGenListBox_SelectedIndexChanged(object sender, EventArgs e)

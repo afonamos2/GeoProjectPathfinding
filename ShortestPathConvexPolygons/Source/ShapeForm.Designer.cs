@@ -38,6 +38,7 @@ namespace ShortestPathConvexPolygons
             this.StartPlaceButton = new System.Windows.Forms.Button();
             this.DestPlaceButton = new System.Windows.Forms.Button();
             this.PlacementPanel = new System.Windows.Forms.Panel();
+            this.FreePolygonPlaceButton = new System.Windows.Forms.Button();
             this.RefreshObjectsButton = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -45,7 +46,7 @@ namespace ShortestPathConvexPolygons
             this.RotationNumeric = new System.Windows.Forms.NumericUpDown();
             this.RadiusNumeric = new System.Windows.Forms.NumericUpDown();
             this.VerticesNumeric = new System.Windows.Forms.NumericUpDown();
-            this.PolygonPlaceButton = new System.Windows.Forms.Button();
+            this.RegPolygonPlaceButton = new System.Windows.Forms.Button();
             this.PlacementLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.PathGenListBox = new System.Windows.Forms.ListBox();
@@ -134,7 +135,7 @@ namespace ShortestPathConvexPolygons
             this.StartPlaceButton.Name = "StartPlaceButton";
             this.StartPlaceButton.Size = new System.Drawing.Size(124, 39);
             this.StartPlaceButton.TabIndex = 1;
-            this.StartPlaceButton.Text = "Start";
+            this.StartPlaceButton.Text = "&Start";
             this.StartPlaceButton.UseVisualStyleBackColor = true;
             this.StartPlaceButton.Click += new System.EventHandler(this.StartPlaceButton_Click);
             // 
@@ -144,13 +145,14 @@ namespace ShortestPathConvexPolygons
             this.DestPlaceButton.Name = "DestPlaceButton";
             this.DestPlaceButton.Size = new System.Drawing.Size(124, 39);
             this.DestPlaceButton.TabIndex = 2;
-            this.DestPlaceButton.Text = "Destination";
+            this.DestPlaceButton.Text = "&Destination";
             this.DestPlaceButton.UseVisualStyleBackColor = true;
             this.DestPlaceButton.Click += new System.EventHandler(this.DestPlaceButton_Click);
             // 
             // PlacementPanel
             // 
             this.PlacementPanel.BackColor = System.Drawing.Color.Pink;
+            this.PlacementPanel.Controls.Add(this.FreePolygonPlaceButton);
             this.PlacementPanel.Controls.Add(this.RefreshObjectsButton);
             this.PlacementPanel.Controls.Add(this.label3);
             this.PlacementPanel.Controls.Add(this.label2);
@@ -158,7 +160,7 @@ namespace ShortestPathConvexPolygons
             this.PlacementPanel.Controls.Add(this.RotationNumeric);
             this.PlacementPanel.Controls.Add(this.RadiusNumeric);
             this.PlacementPanel.Controls.Add(this.VerticesNumeric);
-            this.PlacementPanel.Controls.Add(this.PolygonPlaceButton);
+            this.PlacementPanel.Controls.Add(this.RegPolygonPlaceButton);
             this.PlacementPanel.Controls.Add(this.PlacementLabel);
             this.PlacementPanel.Controls.Add(this.StartPlaceButton);
             this.PlacementPanel.Controls.Add(this.DestPlaceButton);
@@ -167,6 +169,16 @@ namespace ShortestPathConvexPolygons
             this.PlacementPanel.Size = new System.Drawing.Size(478, 195);
             this.PlacementPanel.TabIndex = 3;
             // 
+            // FreePolygonPlaceButton
+            // 
+            this.FreePolygonPlaceButton.Location = new System.Drawing.Point(138, 92);
+            this.FreePolygonPlaceButton.Name = "FreePolygonPlaceButton";
+            this.FreePolygonPlaceButton.Size = new System.Drawing.Size(133, 39);
+            this.FreePolygonPlaceButton.TabIndex = 11;
+            this.FreePolygonPlaceButton.Text = "&Free Polygon";
+            this.FreePolygonPlaceButton.UseVisualStyleBackColor = true;
+            this.FreePolygonPlaceButton.Click += new System.EventHandler(this.FreePolygonPlaceButton_Click);
+            // 
             // RefreshObjectsButton
             // 
             this.RefreshObjectsButton.BackColor = System.Drawing.SystemColors.ControlLightLight;
@@ -174,7 +186,7 @@ namespace ShortestPathConvexPolygons
             this.RefreshObjectsButton.Name = "RefreshObjectsButton";
             this.RefreshObjectsButton.Size = new System.Drawing.Size(124, 35);
             this.RefreshObjectsButton.TabIndex = 10;
-            this.RefreshObjectsButton.Text = "Refresh";
+            this.RefreshObjectsButton.Text = "&Refresh";
             this.RefreshObjectsButton.UseVisualStyleBackColor = false;
             this.RefreshObjectsButton.Click += new System.EventHandler(this.RefreshObjectsButton_Click);
             // 
@@ -259,15 +271,15 @@ namespace ShortestPathConvexPolygons
             0,
             0});
             // 
-            // PolygonPlaceButton
+            // RegPolygonPlaceButton
             // 
-            this.PolygonPlaceButton.Location = new System.Drawing.Point(138, 47);
-            this.PolygonPlaceButton.Name = "PolygonPlaceButton";
-            this.PolygonPlaceButton.Size = new System.Drawing.Size(133, 39);
-            this.PolygonPlaceButton.TabIndex = 4;
-            this.PolygonPlaceButton.Text = "Regular Polygon";
-            this.PolygonPlaceButton.UseVisualStyleBackColor = true;
-            this.PolygonPlaceButton.Click += new System.EventHandler(this.PolygonPlaceButton_Click);
+            this.RegPolygonPlaceButton.Location = new System.Drawing.Point(138, 47);
+            this.RegPolygonPlaceButton.Name = "RegPolygonPlaceButton";
+            this.RegPolygonPlaceButton.Size = new System.Drawing.Size(133, 39);
+            this.RegPolygonPlaceButton.TabIndex = 4;
+            this.RegPolygonPlaceButton.Text = "Reg. &Polygon";
+            this.RegPolygonPlaceButton.UseVisualStyleBackColor = true;
+            this.RegPolygonPlaceButton.Click += new System.EventHandler(this.RegPolygonPlaceButton_Click);
             // 
             // PlacementLabel
             // 
@@ -312,7 +324,7 @@ namespace ShortestPathConvexPolygons
             this.PathGenButton.Name = "PathGenButton";
             this.PathGenButton.Size = new System.Drawing.Size(124, 39);
             this.PathGenButton.TabIndex = 9;
-            this.PathGenButton.Text = "Generate Path";
+            this.PathGenButton.Text = "&Generate Path";
             this.PathGenButton.UseVisualStyleBackColor = false;
             this.PathGenButton.Click += new System.EventHandler(this.PathGenButton_Click);
             // 
@@ -457,7 +469,7 @@ namespace ShortestPathConvexPolygons
         private System.Windows.Forms.Panel PlacementPanel;
         private System.Windows.Forms.Label PlacementLabel;
         private System.Windows.Forms.Label DrawOptionsLabel;
-        private System.Windows.Forms.Button PolygonPlaceButton;
+        private System.Windows.Forms.Button RegPolygonPlaceButton;
         private System.Windows.Forms.NumericUpDown RotationNumeric;
         private System.Windows.Forms.NumericUpDown RadiusNumeric;
         private System.Windows.Forms.NumericUpDown VerticesNumeric;
@@ -478,6 +490,7 @@ namespace ShortestPathConvexPolygons
         private System.Windows.Forms.Label VGTimeLabel;
         private System.Windows.Forms.Label PathTimeLabel;
         private System.Windows.Forms.Label TotalTimeLabel;
+        private System.Windows.Forms.Button FreePolygonPlaceButton;
     }
 }
 

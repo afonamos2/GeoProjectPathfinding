@@ -33,6 +33,11 @@ public partial class Polygon
         _edges = new List<Pair<Vec2>>();
     }
 
+    public void AddPoint(Vec2 point)
+    {
+        _vertices.Add(point);
+    }
+
     public bool LineIntersectsPolygon(Vec2 pointA, Vec2 pointB)
     {
         foreach (var edge in _edges)

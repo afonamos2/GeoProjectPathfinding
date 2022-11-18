@@ -56,4 +56,26 @@ public struct Vec2
     {
         public int Compare(Vec2 a, Vec2 b) => (a.y > b.y) ? 1 : -1;
     }
+
+    public class SortCWAngleToPoint : IComparer<Vec2>
+    {
+        // Point to pivot rotation around
+        Vec2 pivot;
+
+        public SortCWAngleToPoint(Vec2 pivot)
+        {
+            this.pivot = pivot;
+        }
+
+        public int Compare(Vec2 a, Vec2 b)
+        {
+            var aRelative = a - pivot;
+            var bRelative = b - pivot;
+
+            double thetaA = Math.Atan2(aRelative.y, aRelative.x);
+            double thetaB = Math.Atan2(bRelative.y, bRelative.x);
+
+            return (thetaA > thetaB) ? 1 : -1;
+        }
+    }
 }

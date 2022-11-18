@@ -53,7 +53,6 @@ public partial class Graph
             this.neighbors = neighbors;
         }
 
-
         public class SortCWAngleToPoint : IComparer<Node>
         {
             // Point to pivot rotation around

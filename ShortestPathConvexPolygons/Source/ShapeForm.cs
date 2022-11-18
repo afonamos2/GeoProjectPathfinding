@@ -13,6 +13,7 @@ namespace ShortestPathConvexPolygons
         private static readonly Pen visPen = new Pen(Color.Lavender);
         private static readonly Brush startBrush = new SolidBrush(Color.Cyan);
         private static readonly Brush endBrush = new SolidBrush(Color.Red);
+        private static readonly Brush tempPolyBrush = new SolidBrush(Color.DarkMagenta);
 
         private Graph graph;
         private Path path;
@@ -147,9 +148,13 @@ namespace ShortestPathConvexPolygons
             // Drawing temp polygon
             if (tempPolygon != null)
             {
+
                 for (int i = 0; i < tempPolygon.Vertices.Count - 1; i++)
                 {
-                    g.DrawLine(tempPolyPen, tempPolygon.Vertices[i].x, tempPolygon.Vertices[i].y, tempPolygon.Vertices[i + 1].x, tempPolygon.Vertices[i + 1].y);
+                    var p1 = tempPolygon.Vertices[i];
+                    var p2 = tempPolygon.Vertices[i + 1];
+                    g.DrawLine(tempPolyPen, p1.x, p1.y, p2.x, p2.y);
+                    g.FillEllipse(tempPolyBrush, p1.x - 2.5f, p1.y - 2.5f, 5f, 5f);
                 }
             }
 
@@ -220,6 +225,7 @@ namespace ShortestPathConvexPolygons
                 {
                     graph.AddPolygon(tempPolygon);
                     tempPolygon = null;
+                    UpdateGraph();
                 }
                 placementMode = PlacementMode.None;
             }

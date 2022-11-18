@@ -35,7 +35,6 @@ public partial class Graph
         node.neighbors = new List<Node>();
         node.edges = new List<Vec2>();
 
-
         AddVisibleNeighbors(node);
         _nodes.Add(node);
 

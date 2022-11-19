@@ -8,10 +8,26 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>ShortestPathConvexPolygons</RootNamespace>
     <AssemblyName>ShortestPathConvexPolygons</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -47,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Source\Graph\Graph.Methods.cs" />
+    <Compile Include="Source\Graph\Pathfinding\Pathfinder.cs" />
     <Compile Include="Source\ShapeForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -56,12 +73,10 @@
     <Compile Include="Source\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Source\Graph\Graph.cs" />
-    <Compile Include="Source\Graph\Pathfinding\AStar.cs" />
-    <Compile Include="Source\Graph\Pathfinding\BFS.cs" />
     <Compile Include="Source\Graph\Pathfinding\Path.cs" />
-    <Compile Include="Source\Graph\Pathfinding\UCS.cs" />
     <Compile Include="Source\Polygon\Polygon.cs" />
     <Compile Include="Source\Polygon\Polygon.Functions.cs" />
+    <Compile Include="Source\Utility\Logging.cs" />
     <Compile Include="Source\Utility\Pair.cs" />
     <Compile Include="Source\Utility\PriorityQueue.cs" />
     <Compile Include="Source\Utility\Util.cs" />
@@ -84,6 +99,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -100,6 +116,18 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\DataSources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.8 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

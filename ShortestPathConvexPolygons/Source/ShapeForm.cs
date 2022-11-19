@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace ShortestPathConvexPolygons
 {
@@ -43,6 +44,13 @@ namespace ShortestPathConvexPolygons
             Pathfinder.BFS, Pathfinder.UCS, Pathfinder.AStar
         };
 
+        private static readonly string[] PathfinderType =
+        {
+            "BFS", "UCS", "AStar"
+        };
+
+        private Logger log;
+
         public ShapeForm()
         {
             InitializeComponent();
@@ -50,6 +58,18 @@ namespace ShortestPathConvexPolygons
             this.Height = 900;
             PathGenListBox.SelectedIndex = 0; //The box starts at index -1, god knows why
             InitializeGraph();
+
+            log = new Logger();
+
+            List<string> itemsToLog = new List<string>();
+            itemsToLog.Add("Pathfinder");
+            itemsToLog.Add("VG Gen Time");
+            itemsToLog.Add("Path Gen Time");
+            itemsToLog.Add("Total Gen Time");
+            itemsToLog.Add("Graph Item Count");
+            itemsToLog.Add("Path Nodes Explored");
+            itemsToLog.Add("Path Distance");
+            log.AddToLog(itemsToLog);
         }
 
         private void InitializeGraph()
@@ -100,16 +120,31 @@ namespace ShortestPathConvexPolygons
                 UpdateLabels();
         }
 
-
         private void UpdateLabels()
         {
             VerticesLabel.Text = $"Vertices: {graph.Nodes.Count}";
             NodesExploredLabel.Text = $"Nodes Explored: {path.NodesExplored}";
             PathDistanceLabel.Text = $"Distance: {path.Distance}";
-            GraphItemsLabel.Text = $"Graph Items: {path.GraphItems}";
+            GraphItemsLabel.Text = $"Graph Items: {graph.ItemCount}";
             VGTimeLabel.Text = $"VG Generation: {visGraphGenTime}";
             PathTimeLabel.Text = $"Path Generation: {pathGenTime}";
             TotalTimeLabel.Text = $"Total Time: {pathGenTime + visGraphGenTime}";
+
+            if (log != null)
+                UpdateLog();
+        }
+
+        private void UpdateLog()
+        {
+            List<string> itemsToLog = new List<string>();
+            itemsToLog.Add($"{PathfinderType[PathGenListBox.SelectedIndex]}");
+            itemsToLog.Add($"{visGraphGenTime}");
+            itemsToLog.Add($"{pathGenTime}");
+            itemsToLog.Add($"{pathGenTime + visGraphGenTime}");
+            itemsToLog.Add($"{graph.ItemCount}");
+            itemsToLog.Add($"{path.NodesExplored}");
+            itemsToLog.Add($"{path.Distance}");
+            log.AddToLog(itemsToLog);
         }
 
         private void ShapeForm_Paint(object sender, PaintEventArgs e)
@@ -196,15 +231,10 @@ namespace ShortestPathConvexPolygons
                     break;
 
                 case PlacementMode.Polygon:
-                    if (tempPolygon != null)
-                    {
-                        tempPolygon.AddPoint(new Vec2(e.X, e.Y));
-                    }
-                    else
-                    {
+                    if (tempPolygon == null)
                         tempPolygon = new Polygon();
-                        tempPolygon.AddPoint(new Vec2(e.X, e.Y));
-                    }
+
+                    tempPolygon.AddPoint(new Vec2(e.X, e.Y));
                     break;
 
                 case PlacementMode.None:
@@ -221,7 +251,7 @@ namespace ShortestPathConvexPolygons
             // Ctrl allows multiplacement
             if (!(Control.ModifierKeys == Keys.Control))
             {
-                if (placementMode == PlacementMode.Polygon)
+                if (placementMode == PlacementMode.Polygon && tempPolygon.Vertices.Count > 2)
                 {
                     graph.AddPolygon(tempPolygon);
                     tempPolygon = null;

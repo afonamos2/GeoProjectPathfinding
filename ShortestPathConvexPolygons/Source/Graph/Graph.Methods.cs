@@ -78,13 +78,12 @@ public partial class Graph
             return _nodes;
 
         var prunedNodes = new List<Node>();
-        var orientation = Vec2Ext.FindOrientation(baseNode.vertex, baseNode.edges[0], baseNode.edges[1]);
 
         foreach (var node in _nodes)
         {
             if (node.vertex == baseNode.vertex)
                 continue;
-            if (Vec2Ext.FindOrientation(node.vertex, baseNode.edges[0], baseNode.edges[1]) == orientation ||
+            if (Vec2Ext.IsClockwise(node.vertex, baseNode.edges[0], baseNode.edges[1]) ||
                 Vec2Ext.FindOrientation(node.vertex, baseNode.vertex, baseNode.edges[0]) ==
                 Vec2Ext.FindOrientation(node.vertex, baseNode.vertex, baseNode.edges[1])
             ){

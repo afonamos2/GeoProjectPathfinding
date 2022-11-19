@@ -48,12 +48,12 @@ namespace ShortestPathConvexPolygons
             this.VerticesNumeric = new System.Windows.Forms.NumericUpDown();
             this.RegPolygonPlaceButton = new System.Windows.Forms.Button();
             this.PlacementLabel = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.PathGenPanel = new System.Windows.Forms.Panel();
             this.PathGenListBox = new System.Windows.Forms.ListBox();
             this.PathGenButton = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.NodesExploredLabel = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.StatsPanel = new System.Windows.Forms.Panel();
             this.TotalTimeLabel = new System.Windows.Forms.Label();
             this.PathTimeLabel = new System.Windows.Forms.Label();
             this.VGTimeLabel = new System.Windows.Forms.Label();
@@ -61,13 +61,14 @@ namespace ShortestPathConvexPolygons
             this.PathDistanceLabel = new System.Windows.Forms.Label();
             this.VerticesLabel = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.DrawOptionsPanel.SuspendLayout();
             this.PlacementPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RotationNumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RadiusNumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.VerticesNumeric)).BeginInit();
-            this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
+            this.PathGenPanel.SuspendLayout();
+            this.StatsPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // DrawOptionsPanel
@@ -152,6 +153,7 @@ namespace ShortestPathConvexPolygons
             // PlacementPanel
             // 
             this.PlacementPanel.BackColor = System.Drawing.Color.Pink;
+            this.PlacementPanel.Controls.Add(this.label5);
             this.PlacementPanel.Controls.Add(this.FreePolygonPlaceButton);
             this.PlacementPanel.Controls.Add(this.RefreshObjectsButton);
             this.PlacementPanel.Controls.Add(this.label3);
@@ -164,9 +166,9 @@ namespace ShortestPathConvexPolygons
             this.PlacementPanel.Controls.Add(this.PlacementLabel);
             this.PlacementPanel.Controls.Add(this.StartPlaceButton);
             this.PlacementPanel.Controls.Add(this.DestPlaceButton);
-            this.PlacementPanel.Location = new System.Drawing.Point(161, 12);
+            this.PlacementPanel.Location = new System.Drawing.Point(160, 12);
             this.PlacementPanel.Name = "PlacementPanel";
-            this.PlacementPanel.Size = new System.Drawing.Size(478, 195);
+            this.PlacementPanel.Size = new System.Drawing.Size(480, 195);
             this.PlacementPanel.TabIndex = 3;
             // 
             // FreePolygonPlaceButton
@@ -277,7 +279,7 @@ namespace ShortestPathConvexPolygons
             this.RegPolygonPlaceButton.Name = "RegPolygonPlaceButton";
             this.RegPolygonPlaceButton.Size = new System.Drawing.Size(133, 39);
             this.RegPolygonPlaceButton.TabIndex = 4;
-            this.RegPolygonPlaceButton.Text = "Reg. &Polygon";
+            this.RegPolygonPlaceButton.Text = "R&eg. Polygon";
             this.RegPolygonPlaceButton.UseVisualStyleBackColor = true;
             this.RegPolygonPlaceButton.Click += new System.EventHandler(this.RegPolygonPlaceButton_Click);
             // 
@@ -291,16 +293,16 @@ namespace ShortestPathConvexPolygons
             this.PlacementLabel.TabIndex = 3;
             this.PlacementLabel.Text = "Object Placement";
             // 
-            // panel1
+            // PathGenPanel
             // 
-            this.panel1.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.panel1.Controls.Add(this.PathGenListBox);
-            this.panel1.Controls.Add(this.PathGenButton);
-            this.panel1.Controls.Add(this.label4);
-            this.panel1.Location = new System.Drawing.Point(12, 12);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(143, 195);
-            this.panel1.TabIndex = 4;
+            this.PathGenPanel.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.PathGenPanel.Controls.Add(this.PathGenListBox);
+            this.PathGenPanel.Controls.Add(this.PathGenButton);
+            this.PathGenPanel.Controls.Add(this.label4);
+            this.PathGenPanel.Location = new System.Drawing.Point(12, 12);
+            this.PathGenPanel.Name = "PathGenPanel";
+            this.PathGenPanel.Size = new System.Drawing.Size(140, 195);
+            this.PathGenPanel.TabIndex = 4;
             // 
             // PathGenListBox
             // 
@@ -347,21 +349,21 @@ namespace ShortestPathConvexPolygons
             this.NodesExploredLabel.TabIndex = 5;
             this.NodesExploredLabel.Text = "Nodes Explored";
             // 
-            // panel2
+            // StatsPanel
             // 
-            this.panel2.BackColor = System.Drawing.Color.PaleGreen;
-            this.panel2.Controls.Add(this.TotalTimeLabel);
-            this.panel2.Controls.Add(this.PathTimeLabel);
-            this.panel2.Controls.Add(this.VGTimeLabel);
-            this.panel2.Controls.Add(this.GraphItemsLabel);
-            this.panel2.Controls.Add(this.PathDistanceLabel);
-            this.panel2.Controls.Add(this.VerticesLabel);
-            this.panel2.Controls.Add(this.label6);
-            this.panel2.Controls.Add(this.NodesExploredLabel);
-            this.panel2.Location = new System.Drawing.Point(840, 12);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(305, 217);
-            this.panel2.TabIndex = 6;
+            this.StatsPanel.BackColor = System.Drawing.Color.PaleGreen;
+            this.StatsPanel.Controls.Add(this.TotalTimeLabel);
+            this.StatsPanel.Controls.Add(this.PathTimeLabel);
+            this.StatsPanel.Controls.Add(this.VGTimeLabel);
+            this.StatsPanel.Controls.Add(this.GraphItemsLabel);
+            this.StatsPanel.Controls.Add(this.PathDistanceLabel);
+            this.StatsPanel.Controls.Add(this.VerticesLabel);
+            this.StatsPanel.Controls.Add(this.label6);
+            this.StatsPanel.Controls.Add(this.NodesExploredLabel);
+            this.StatsPanel.Location = new System.Drawing.Point(840, 12);
+            this.StatsPanel.Name = "StatsPanel";
+            this.StatsPanel.Size = new System.Drawing.Size(305, 217);
+            this.StatsPanel.TabIndex = 6;
             // 
             // TotalTimeLabel
             // 
@@ -428,14 +430,24 @@ namespace ShortestPathConvexPolygons
             this.label6.TabIndex = 4;
             this.label6.Text = "Statistics";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.LavenderBlush;
+            this.label5.Location = new System.Drawing.Point(225, 12);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(208, 20);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "Hold Ctrl to repeatedly place";
+            // 
             // ShapeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1258, 664);
-            this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel1);
+            this.ClientSize = new System.Drawing.Size(1578, 844);
+            this.Controls.Add(this.StatsPanel);
+            this.Controls.Add(this.PathGenPanel);
             this.Controls.Add(this.PlacementPanel);
             this.Controls.Add(this.DrawOptionsPanel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -450,10 +462,10 @@ namespace ShortestPathConvexPolygons
             ((System.ComponentModel.ISupportInitialize)(this.RotationNumeric)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RadiusNumeric)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.VerticesNumeric)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
+            this.PathGenPanel.ResumeLayout(false);
+            this.PathGenPanel.PerformLayout();
+            this.StatsPanel.ResumeLayout(false);
+            this.StatsPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -476,13 +488,13 @@ namespace ShortestPathConvexPolygons
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel PathGenPanel;
         private System.Windows.Forms.Button PathGenButton;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button RefreshObjectsButton;
         private System.Windows.Forms.ListBox PathGenListBox;
         private System.Windows.Forms.Label NodesExploredLabel;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel StatsPanel;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label PathDistanceLabel;
         private System.Windows.Forms.Label VerticesLabel;
@@ -491,6 +503,7 @@ namespace ShortestPathConvexPolygons
         private System.Windows.Forms.Label PathTimeLabel;
         private System.Windows.Forms.Label TotalTimeLabel;
         private System.Windows.Forms.Button FreePolygonPlaceButton;
+        private System.Windows.Forms.Label label5;
     }
 }
 

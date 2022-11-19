@@ -60,7 +60,6 @@ public static class Pathfinder
 
         Path path = BacktrackToGetPath(paths, start, dest);
         path.NodesExplored = nodeExplored;
-        path.GraphItems = graph.ItemCount;
 
         return path;
     }
@@ -116,7 +115,6 @@ public static class Pathfinder
 
         Path path = BacktrackToGetPath(paths, start, dest);
         path.NodesExplored = nodeExplored;
-        path.GraphItems = graph.ItemCount;
 
         return path;
     }

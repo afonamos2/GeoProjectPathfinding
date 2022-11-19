@@ -76,6 +76,7 @@
     <Compile Include="Source\Graph\Pathfinding\Path.cs" />
     <Compile Include="Source\Polygon\Polygon.cs" />
     <Compile Include="Source\Polygon\Polygon.Functions.cs" />
+    <Compile Include="Source\Utility\Logging.cs" />
     <Compile Include="Source\Utility\Pair.cs" />
     <Compile Include="Source\Utility\PriorityQueue.cs" />
     <Compile Include="Source\Utility\Util.cs" />

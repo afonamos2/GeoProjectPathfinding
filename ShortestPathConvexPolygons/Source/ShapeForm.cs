@@ -58,18 +58,6 @@ namespace ShortestPathConvexPolygons
             this.Height = 900;
             PathGenListBox.SelectedIndex = 0; //The box starts at index -1, god knows why
             InitializeGraph();
-
-            log = new Logger();
-
-            List<string> itemsToLog = new List<string>();
-            itemsToLog.Add("Pathfinder");
-            itemsToLog.Add("VG Gen Time");
-            itemsToLog.Add("Path Gen Time");
-            itemsToLog.Add("Total Gen Time");
-            itemsToLog.Add("Graph Item Count");
-            itemsToLog.Add("Path Nodes Explored");
-            itemsToLog.Add("Path Distance");
-            log.AddToLog(itemsToLog);
         }
 
         private void InitializeGraph()
@@ -136,6 +124,11 @@ namespace ShortestPathConvexPolygons
 
         private void UpdateLog()
         {
+            if (!Logging.Checked)
+            {
+                return;
+            }
+
             List<string> itemsToLog = new List<string>();
             itemsToLog.Add($"{PathfinderType[PathGenListBox.SelectedIndex]}");
             itemsToLog.Add($"{visGraphGenTime}");
@@ -315,6 +308,24 @@ namespace ShortestPathConvexPolygons
             else
                 InitializeGraph();
             Invalidate();
+        }
+
+        private void Logging_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Logging.Checked)
+            {
+                log = new Logger();
+
+                List<string> itemsToLog = new List<string>();
+                itemsToLog.Add("Pathfinder");
+                itemsToLog.Add("VG Gen Time");
+                itemsToLog.Add("Path Gen Time");
+                itemsToLog.Add("Total Gen Time");
+                itemsToLog.Add("Graph Item Count");
+                itemsToLog.Add("Path Nodes Explored");
+                itemsToLog.Add("Path Distance");
+                log.AddToLog(itemsToLog);
+            }
         }
     }
 }

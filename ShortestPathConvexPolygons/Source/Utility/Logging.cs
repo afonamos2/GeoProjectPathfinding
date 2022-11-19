@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,13 +19,15 @@ class Logger
 
     public Logger()
     {
+        string userName = Environment.UserName;
+
         _name = $"{DateTime.Now.ToFileTime()}_log";
-        _path = $@"c:\Users\dspli\Desktop\{_name}.csv";
-        _file = new FileInfo(_name);
+        _path = $@"c:\Users\{userName}\Desktop\{_name}.csv";
+        _file = new FileInfo(_path);
 
         if (!_file.Exists)
         {
-            _fstream = File.Create(_path);
+            _fstream = File.Create(_name);
             _fstream.Close();
         }
     }

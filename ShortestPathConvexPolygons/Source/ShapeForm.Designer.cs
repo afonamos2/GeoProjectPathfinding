@@ -38,6 +38,7 @@ namespace ShortestPathConvexPolygons
             this.StartPlaceButton = new System.Windows.Forms.Button();
             this.DestPlaceButton = new System.Windows.Forms.Button();
             this.PlacementPanel = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
             this.FreePolygonPlaceButton = new System.Windows.Forms.Button();
             this.RefreshObjectsButton = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
@@ -61,7 +62,7 @@ namespace ShortestPathConvexPolygons
             this.PathDistanceLabel = new System.Windows.Forms.Label();
             this.VerticesLabel = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.Logging = new System.Windows.Forms.CheckBox();
             this.DrawOptionsPanel.SuspendLayout();
             this.PlacementPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RotationNumeric)).BeginInit();
@@ -170,6 +171,16 @@ namespace ShortestPathConvexPolygons
             this.PlacementPanel.Name = "PlacementPanel";
             this.PlacementPanel.Size = new System.Drawing.Size(480, 195);
             this.PlacementPanel.TabIndex = 3;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.LavenderBlush;
+            this.label5.Location = new System.Drawing.Point(225, 12);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(208, 20);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "Hold Ctrl to repeatedly place";
             // 
             // FreePolygonPlaceButton
             // 
@@ -352,6 +363,7 @@ namespace ShortestPathConvexPolygons
             // StatsPanel
             // 
             this.StatsPanel.BackColor = System.Drawing.Color.PaleGreen;
+            this.StatsPanel.Controls.Add(this.Logging);
             this.StatsPanel.Controls.Add(this.TotalTimeLabel);
             this.StatsPanel.Controls.Add(this.PathTimeLabel);
             this.StatsPanel.Controls.Add(this.VGTimeLabel);
@@ -362,7 +374,7 @@ namespace ShortestPathConvexPolygons
             this.StatsPanel.Controls.Add(this.NodesExploredLabel);
             this.StatsPanel.Location = new System.Drawing.Point(840, 12);
             this.StatsPanel.Name = "StatsPanel";
-            this.StatsPanel.Size = new System.Drawing.Size(305, 217);
+            this.StatsPanel.Size = new System.Drawing.Size(305, 238);
             this.StatsPanel.TabIndex = 6;
             // 
             // TotalTimeLabel
@@ -430,15 +442,16 @@ namespace ShortestPathConvexPolygons
             this.label6.TabIndex = 4;
             this.label6.Text = "Statistics";
             // 
-            // label5
+            // Logging
             // 
-            this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.Color.LavenderBlush;
-            this.label5.Location = new System.Drawing.Point(225, 12);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(208, 20);
-            this.label5.TabIndex = 12;
-            this.label5.Text = "Hold Ctrl to repeatedly place";
+            this.Logging.AutoSize = true;
+            this.Logging.Location = new System.Drawing.Point(7, 208);
+            this.Logging.Name = "Logging";
+            this.Logging.Size = new System.Drawing.Size(146, 24);
+            this.Logging.TabIndex = 12;
+            this.Logging.Text = "Enable Logging";
+            this.Logging.UseVisualStyleBackColor = true;
+            this.Logging.CheckedChanged += new System.EventHandler(this.Logging_CheckedChanged);
             // 
             // ShapeForm
             // 
@@ -504,6 +517,7 @@ namespace ShortestPathConvexPolygons
         private System.Windows.Forms.Label TotalTimeLabel;
         private System.Windows.Forms.Button FreePolygonPlaceButton;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.CheckBox Logging;
     }
 }
 

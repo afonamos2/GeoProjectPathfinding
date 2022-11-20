@@ -129,14 +129,17 @@ namespace ShortestPathConvexPolygons
                 return;
             }
 
-            List<string> itemsToLog = new List<string>();
-            itemsToLog.Add($"{PathfinderType[PathGenListBox.SelectedIndex]}");
-            itemsToLog.Add($"{visGraphGenTime}");
-            itemsToLog.Add($"{pathGenTime}");
-            itemsToLog.Add($"{pathGenTime + visGraphGenTime}");
-            itemsToLog.Add($"{graph.ItemCount}");
-            itemsToLog.Add($"{path.NodesExplored}");
-            itemsToLog.Add($"{path.Distance}");
+            List<string> itemsToLog = new List<string>
+            {
+                $"{PathfinderType[PathGenListBox.SelectedIndex]}",
+                $"{visGraphGenTime}",
+                $"{pathGenTime}",
+                $"{pathGenTime + visGraphGenTime}",
+                $"{graph.ItemCount}",
+                $"{path.NodesExplored}",
+                $"{path.Distance}"
+            };
+
             log.AddToLog(itemsToLog);
         }
 
@@ -316,14 +319,17 @@ namespace ShortestPathConvexPolygons
             {
                 log = new Logger();
 
-                List<string> itemsToLog = new List<string>();
-                itemsToLog.Add("Pathfinder");
-                itemsToLog.Add("VG Gen Time");
-                itemsToLog.Add("Path Gen Time");
-                itemsToLog.Add("Total Gen Time");
-                itemsToLog.Add("Graph Item Count");
-                itemsToLog.Add("Path Nodes Explored");
-                itemsToLog.Add("Path Distance");
+                List<string> itemsToLog = new List<string>
+                {
+                    "Pathfinder",
+                    "VG Gen Time",
+                    "Path Gen Time",
+                    "Total Gen Time",
+                    "Graph Item Count",
+                    "Path Nodes Explored",
+                    "Path Distance"
+                };
+                
                 log.AddToLog(itemsToLog);
             }
         }
